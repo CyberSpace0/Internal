@@ -1,200 +1,249 @@
-🐚 Simple Shell
+```md
+# HBnB Technical Documentation
 
-A UNIX command line interpreter written in C.
+## 1. Introduction
 
-📌 Project Overview
+### Purpose
 
-This project is a minimalist implementation of a UNIX shell.
-It replicates the core behavior of /bin/sh using low-level system calls and without relying on external libraries beyond the standard C library.
+This document provides the technical design and architecture of the HBnB application. It serves as a blueprint for the implementation phase by documenting the system architecture, business logic, and API interaction flow. It consolidates all UML diagrams produced during the design phase into a single reference that will guide the development of the application.
 
-The shell supports:
+### Project Overview
 
-Interactive and non-interactive mode
-Execution of commands with arguments
-PATH resolution
-Built-in commands (exit, env)
-Proper error handling
-Correct exit status propagation
-Memory management (Valgrind clean)
-📚 Learning Objectives
+HBnB is a web application that allows users to manage places, reviews, and amenities. The project follows a layered architecture that separates the Presentation, Business Logic, and Persistence layers. Communication between the Presentation layer and the Business Logic layer is handled through a Facade, providing a simple and consistent interface for processing application requests.
 
-Through this project we practiced:
+---
 
-Process creation (fork)
-Program execution (execve)
-Process synchronization (wait)
-Environment handling (environ)
-PATH parsing
-Dynamic memory management
-System call error handling
-UNIX process lifecycle
-🛠 Compilation
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
-🚀 Usage
-Interactive Mode
-$ ./hsh
-$ ls
-$ ls -l /tmp
-$ env
-$ exit
-Non-Interactive Mode
-echo "ls -l" | ./hsh
-⚙️ Features Implemented (Holberton Requirements)
-✅ 1. Basic Shell
-Displays a prompt in interactive mode
-Reads user input using getline
-Executes commands using fork and execve
-Handles EOF (Ctrl + D)
-✅ 2. Handle Arguments
+# 2. High-Level Architecture
 
-Supports commands with arguments:
+## High-Level Package Diagram
 
-ls -l /var
+![High-Level Package Diagram](https://github.com/CyberSpace0/holbertonschool-hbnb/blob/main/part1/package-diagram.png)
 
-Tokenization is implemented using strtok.
+### Purpose
 
-✅ 3. Handle PATH
+The High-Level Package Diagram provides an overview of the application's architecture and illustrates how the major layers communicate with each other.
 
-If the command does not contain / or ., the shell searches for it in the PATH environment variable.
+### Architecture Overview
 
-Example:
+The application is organized into three main layers:
 
-ls
+### Presentation Layer
 
-Internally searches:
+Responsible for:
 
-/bin/ls
-/usr/bin/ls
-...
+- Receiving HTTP requests.
+- Validating incoming data.
+- Returning HTTP responses.
 
-If not found → prints error without calling fork.
+### Business Logic Layer
 
-✅ 4. fork Must Not Be Called If Command Doesn't Exist
+Responsible for:
 
-The shell validates command existence before forking:
+- Processing business rules.
+- Managing application entities.
+- Coordinating operations through the Facade.
 
-if (cmd_path == NULL)
-{
-    fprintf(stderr, "./hsh: %d: %s: not found\n", line_num, argv[0]);
-    return (127);
-}
+### Persistence Layer
 
-This satisfies Holberton’s strict requirement.
+Responsible for:
 
-✅ 5. Built-in: exit
+- Storing application data.
+- Retrieving data from storage.
+- Managing CRUD operations.
 
-Usage:
+### Design Decisions
 
-exit
-Exits the shell
-Returns the last command exit status
-No arguments required (per project specification)
-✅ 6. Built-in: env
+- A layered architecture was selected to improve maintainability and separation of concerns.
+- The Facade simplifies communication between the API and the Business Logic layer.
+- The Persistence layer is isolated, allowing storage implementations to change without affecting higher layers.
 
-Usage:
+---
 
-env
+# 3. Business Logic Layer
 
-Prints all environment variables using:
+## Detailed Class Diagram
 
-extern char **environ;
-🧠 Execution Flow
-START
-  ↓
-Display prompt (if interactive)
-  ↓
-Read input (getline)
-  ↓
-Remove newline
-  ↓
-Tokenize input
-  ↓
-Check built-ins (exit / env)
-  ↓
-Search in PATH (if needed)
-  ↓
-If command not found → print error (NO fork)
-  ↓
-fork()
-  ↓
-Child → execve()
-Parent → wait()
-  ↓
-Return exit status
-  ↓
-Repeat
-📂 Main Components
-🔹 main()
-Shell loop
-Input parsing
-Built-in handling
-Status tracking
-🔹 execute_command()
-Validates executable path
-Forks process
-Calls execve
-Waits for child
-Returns exit status
-🔹 find_in_path()
-Parses PATH
-Iterates directories
-Constructs full path
-Validates using stat
-Returns full path or NULL
-🔹 print_env()
-Iterates through environ
-Prints environment variables
-❌ Error Handling
+![Business Logic Class Diagram](https://github.com/CyberSpace0/holbertonschool-hbnb/blob/main/part1/Detailed_Class_Diagram.md)
 
-Handles:
+### Purpose
 
-Command not found
-Fork failure
-Execve failure
-Empty input
-EOF
-Memory allocation errors
+The Business Logic class diagram defines the application's core entities, their responsibilities, and their relationships.
 
-Error format:
+### Main Classes
 
-./hsh: line_number: command: not found
+#### User
 
-Exit status 127 is returned when command is not found.
+Represents a registered user of the application.
 
-🧵 Memory Management
-All dynamically allocated memory is freed
-cmd_path freed after use
-line freed before exit
-No memory leaks (Valgrind clean)
-🧪 Example
-Valid Command
-$ ls
-main.c hsh README.md
-Invalid Command
-$ fakecmd
-./hsh: 3: fakecmd: not found
-🔐 System Calls Used
-fork
-execve
-wait
-write
-access
-stat
-getline
-malloc
-free
-🧾 Return Status Behavior
-Returns the exit status of the last executed command.
-Returns 127 if command not found.
-Built-in exit returns last status.
-🧩 Project Constraints (Respected)
+Responsibilities:
 
-✔ No use of system()
-✔ No advanced shell features (pipes, redirections, etc.)
-✔ No unnecessary forks
-✔ Proper PATH handling
-✔ No memory leaks
-✔ Only allowed functions used
+- Store user information.
+- Authenticate users.
+- Distinguish administrators from regular users using the `is_admin` attribute.
 
-👨‍💻 Authors
-AZZAM AL DUYULI && ABDULMALIK BIN AQEEL
+---
+
+#### Place
+
+Represents a property listed in the application.
+
+Responsibilities:
+
+- Store place information.
+- Reference its owner through the `owner` attribute.
+- Manage associated amenities.
+- Receive user reviews.
+
+---
+
+#### Review
+
+Represents feedback submitted by users for a place.
+
+Responsibilities:
+
+- Store ratings.
+- Store comments.
+- Associate users with places.
+
+---
+
+#### Amenity
+
+Represents facilities available for a place.
+
+Examples include:
+
+- Wi-Fi
+- Parking
+- Swimming Pool
+
+### Relationships
+
+- A Place references a User through the `owner` attribute.
+- A User can create Reviews.
+- A Review belongs to one User and one Place.
+- A Place can contain multiple Reviews.
+- A Place can contain multiple Amenities.
+
+### Design Decisions
+
+- Each class is responsible for managing its own data and behavior.
+- Ownership is maintained through the `owner` attribute of the Place class.
+- User permissions are determined by the `is_admin` attribute.
+- Relationships between entities reflect the application's business rules while maintaining clear separation of responsibilities.
+
+---
+
+# 4. API Interaction Flow
+
+This section describes the interactions between the client, Presentation layer, Business Logic layer, and Persistence layer during common API operations.
+
+---
+
+## 4.1 Create User
+
+![Create User Sequence Diagram](https://github.com/CyberSpace0/holbertonschool-hbnb/blob/main/part1/sequence-diagrams.md#1-user-registration)
+
+### Purpose
+
+Illustrates how a new user account is created.
+
+### Interaction Flow
+
+1. The client sends a POST request to create a user.
+2. The API validates the request.
+3. The request is forwarded to the Facade.
+4. The Facade creates the User object.
+5. The Persistence layer stores the new user.
+6. A success response is returned to the client.
+
+---
+
+## 4.2 Create Place
+
+![Create Place Sequence Diagram](https://github.com/CyberSpace0/holbertonschool-hbnb/blob/main/part1/sequence-diagrams.md#2-place-creation)
+
+### Purpose
+
+Illustrates how a new place is created.
+
+### Interaction Flow
+
+1. The client submits the place information.
+2. The API validates the request.
+3. The request is forwarded to the Facade.
+4. The Facade creates the Place object.
+5. The owner is associated with the Place.
+6. The Persistence layer stores the Place.
+7. A success response is returned.
+
+---
+
+## 4.3 Create Review
+
+![Create Review Sequence Diagram](https://github.com/CyberSpace0/holbertonschool-hbnb/blob/main/part1/sequence-diagrams.md#3-review-submission)
+
+### Purpose
+
+Illustrates how a user submits a review for a place.
+
+### Interaction Flow
+
+1. The client sends the review information.
+2. The API validates the request.
+3. The Facade verifies the User and Place.
+4. A Review object is created.
+5. The Persistence layer stores the review.
+6. The API returns a success response.
+
+---
+
+## 4.4 Retrieve Places
+
+![Retrieve Places Sequence Diagram](https://github.com/CyberSpace0/holbertonschool-hbnb/blob/main/part1/sequence-diagrams.md#4-fetching-a-list-of-places)
+
+### Purpose
+
+Illustrates how the application retrieves available places.
+
+### Interaction Flow
+
+1. The client sends a GET request.
+2. The API forwards the request to the Facade.
+3. The Facade requests the data from the Persistence layer.
+4. The Persistence layer retrieves the places.
+5. The data is returned through the Facade.
+6. The API returns the list of places to the client.
+
+---
+
+# 5. Overall Design
+
+The HBnB application follows a layered architecture that clearly separates presentation, business logic, and persistence responsibilities. This separation improves maintainability, scalability, and testability.
+
+The Facade acts as the single entry point to the Business Logic layer, simplifying communication between the API and the application's core logic. The Business Logic layer contains the entities and rules that govern application behavior, while the Persistence layer is responsible for storing and retrieving data.
+
+The UML diagrams included in this document describe both the static structure of the application and the runtime interactions between its components. Together, they provide a complete blueprint for implementing the HBnB project.
+
+---
+
+# 6. Conclusion
+
+This document combines the architectural package diagram, business logic class diagram, and API sequence diagrams into a single technical reference. It provides developers with a clear understanding of the system's structure, responsibilities, and interactions, ensuring consistency throughout the implementation phase.
+
+---
+
+# Appendix
+
+## Diagram References
+
+| Diagram | Replace With |
+|----------|--------------|
+| High-Level Package Diagram | `https://github.com/CyberSpace0/holbertonschool-hbnb/blob/main/part1/package-diagram.png` |
+| Business Logic Class Diagram | `https://github.com/CyberSpace0/holbertonschool-hbnb/blob/main/part1/Detailed_Class_Diagram.md` |
+| Create User Sequence Diagram | `https://github.com/CyberSpace0/holbertonschool-hbnb/blob/main/part1/sequence-diagrams.md` |
+| Create Place Sequence Diagram | `https://github.com/CyberSpace0/holbertonschool-hbnb/blob/main/part1/sequence-diagrams.md` |
+| Create Review Sequence Diagram | `https://github.com/CyberSpace0/holbertonschool-hbnb/blob/main/part1/sequence-diagrams.md` |
+| Retrieve Places Sequence Diagram | `https://github.com/CyberSpace0/holbertonschool-hbnb/blob/main/part1/sequence-diagrams.md` |
+```
