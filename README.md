@@ -1,116 +1,63 @@
-# HBnB Evolution
+# Overview
 
-## Overview
-
-HBnB Evolution is a simplified Airbnb-like application developed as part of the Holberton School curriculum. The project is divided into three stages that gradually build the application from design to implementation.
-
-The objective is to apply software engineering principles by designing the system architecture, implementing a RESTful API, integrating persistent storage, and developing a web interface.
-
----
-
-## Project Structure
+HBnB Evolution is a simplified Airbnb-like application developed as part of the Holberton School curriculum. The project is completed in three consecutive stages, where each stage builds upon the previous one. The first stage focuses on designing the system, the second implements the backend and database, and the third develops the frontend that interacts with the API.
 
 ```text
-.
-├── README.md
-├── part1/
-│   ├── Technical_Documentation.md
-│   ├── package-diagram.png
-│   ├── class-diagram.png
-│   ├── sequence-diagrams/
-│   └── ...
-├── part2/
-│   └── API and Database implementation
-└── part3/
-    └── Frontend implementation
+                HBnB Evolution
+                       │
+        ┌──────────────┼──────────────┐
+        │              │              │
+        ▼              ▼              ▼
++----------------+ +----------------+ +----------------+
+|    Part 1      | |    Part 2      | |    Part 3      |
+| Documentation  | | Backend & DB   | |    Frontend    |
++----------------+ +----------------+ +----------------+
+        │              │              │
+        ▼              ▼              ▼
+• UML Diagrams   • REST API      • User Interface
+• Architecture   • Business Logic • API Integration
+• System Design  • Database       • Authentication
+• Specifications • Authentication • Application Features
 ```
 
----
+### Project Stages
 
-## Project Stages
+**Part 1 – Technical Documentation**
 
-### Part 1 – Technical Documentation
+Design the application's architecture before implementation by producing UML diagrams and technical documentation.
 
-The first stage focuses on software design before implementation.
-
-Deliverables include:
+Deliverables:
 
 * High-Level Package Diagram
 * Business Logic Class Diagram
-* API Sequence Diagrams
+* Sequence Diagrams
 * Technical Documentation
-
-Topics covered:
-
-* Layered Architecture
-* Facade Design Pattern
-* UML Modeling
-* Business Rules
-* System Interactions
 
 ---
 
-### Part 2 – Backend Development
+**Part 2 – Backend Development**
 
-The second stage implements the backend of the application.
+Implement the server-side application, business logic, RESTful API, authentication, and database integration.
 
 Main objectives:
 
 * RESTful API
-* Business Logic implementation
-* Database integration
-* Data persistence
-* Authentication
 * CRUD operations
-
-Technologies may include:
-
-* Python
-* Flask
-* SQLAlchemy
-* SQLite/MySQL
-
----
-
-### Part 3 – Frontend Development
-
-The final stage implements the client-side application.
-
-Features include:
-
-* User interface
-* API integration
 * Authentication
-* Place management
+* Business Logic
+* Database Persistence
+
+---
+
+**Part 3 – Frontend Development**
+
+Develop the client-side application that communicates with the backend API.
+
+Main objectives:
+
+* User Interface
+* API Consumption
+* Authentication
+* Place Management
 * Reviews
-* Amenities management
-
----
-
-## Core Features
-
-* User registration and authentication
-* Administrator support
-* Place management
-* Review management
-* Amenity management
-* Layered architecture
-* RESTful API
-* Persistent database
-* Responsive frontend
-
----
-
-## Repository Organization
-
-| Directory | Description                              |
-| --------- | ---------------------------------------- |
-| `part1`   | Technical documentation and UML diagrams |
-| `part2`   | Backend API and database implementation  |
-| `part3`   | Frontend implementation                  |
-
----
-
-## Authors
-
-Developed as part of the **HBnB Evolution** project at Holberton School.
+* Amenities
