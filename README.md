@@ -1,31 +1,116 @@
+# HBnB Evolution
+
 ## Overview
 
-HBnB Evolution is a simplified Airbnb-like application developed as part of the Holberton School curriculum. The project is divided into three progressive stages. Each stage builds upon the previous one, following a typical software development lifecycle: **Design → Backend Development → Frontend Development**.
+HBnB Evolution is a simplified Airbnb-like application developed as part of the Holberton School curriculum. The project is divided into three stages that gradually build the application from design to implementation.
+
+The objective is to apply software engineering principles by designing the system architecture, implementing a RESTful API, integrating persistent storage, and developing a web interface.
+
+---
+
+## Project Structure
 
 ```text
-                           HBnB Evolution
-                                  │
-        ┌─────────────────────────┼─────────────────────────┐
-        │                         │                         │
-        ▼                         ▼                         ▼
-┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
-│     Part 1      │ ───► │     Part 2      │ ───► │     Part 3      │
-│  Documentation  │      │ Backend & API   │      │    Frontend     │
-└─────────────────┘      └─────────────────┘      └─────────────────┘
-        │                         │                         │
-        │                         │                         │
-        ├─ High-Level UML         ├─ RESTful API           ├─ User Interface
-        ├─ Class Diagram          ├─ Business Logic        ├─ API Integration
-        ├─ Sequence Diagrams      ├─ Database              ├─ Authentication
-        └─ Technical Docs         └─ Authentication        └─ Application Features
+.
+├── README.md
+├── part1/
+│   ├── Technical_Documentation.md
+│   ├── package-diagram.png
+│   ├── class-diagram.png
+│   ├── sequence-diagrams/
+│   └── ...
+├── part2/
+│   └── API and Database implementation
+└── part3/
+    └── Frontend implementation
 ```
 
-### Development Roadmap
+---
 
-| Stage      | Focus                | Deliverables                                                   |
-| ---------- | -------------------- | -------------------------------------------------------------- |
-| **Part 1** | Software Design      | UML Diagrams, Technical Documentation, System Architecture     |
-| **Part 2** | Backend Development  | REST API, Business Logic, Authentication, Database Integration |
-| **Part 3** | Frontend Development | User Interface, API Consumption, Complete Client Application   |
+## Project Stages
 
-Each stage provides the foundation for the next, ensuring that the system is thoroughly designed before implementation and fully functional before the user interface is developed.
+### Part 1 – Technical Documentation
+
+The first stage focuses on software design before implementation.
+
+Deliverables include:
+
+* High-Level Package Diagram
+* Business Logic Class Diagram
+* API Sequence Diagrams
+* Technical Documentation
+
+Topics covered:
+
+* Layered Architecture
+* Facade Design Pattern
+* UML Modeling
+* Business Rules
+* System Interactions
+
+---
+
+### Part 2 – Backend Development
+
+The second stage implements the backend of the application.
+
+Main objectives:
+
+* RESTful API
+* Business Logic implementation
+* Database integration
+* Data persistence
+* Authentication
+* CRUD operations
+
+Technologies may include:
+
+* Python
+* Flask
+* SQLAlchemy
+* SQLite/MySQL
+
+---
+
+### Part 3 – Frontend Development
+
+The final stage implements the client-side application.
+
+Features include:
+
+* User interface
+* API integration
+* Authentication
+* Place management
+* Reviews
+* Amenities management
+
+---
+
+## Core Features
+
+* User registration and authentication
+* Administrator support
+* Place management
+* Review management
+* Amenity management
+* Layered architecture
+* RESTful API
+* Persistent database
+* Responsive frontend
+
+---
+
+## Repository Organization
+
+| Directory | Description                              |
+| --------- | ---------------------------------------- |
+| `part1`   | Technical documentation and UML diagrams |
+| `part2`   | Backend API and database implementation  |
+| `part3`   | Frontend implementation                  |
+
+---
+
+## Authors
+
+Developed as part of the **HBnB Evolution** project at Holberton School.
