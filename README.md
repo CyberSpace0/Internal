@@ -62,7 +62,7 @@ Responsible for:
 
 ## Detailed Class Diagram
 
-![Business Logic Class Diagram](https://raw.githubusercontent.com/CyberSpace0/holbertonschool-hbnb/refs/heads/main/part1/Detailed_Class_Diagram.md)
+[Business Logic Class Diagram](https://raw.githubusercontent.com/CyberSpace0/holbertonschool-hbnb/refs/heads/main/part1/Detailed_Class_Diagram.md)
 
 ### Purpose
 
