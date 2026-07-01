@@ -1,4 +1,3 @@
-```md
 # HBnB Technical Documentation
 
 ## 1. Introduction
